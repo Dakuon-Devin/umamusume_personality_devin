@@ -1,0 +1,50 @@
+name: Lint Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Python dependencies
+        working-directory: backend
+        run: |
+          pip install poetry
+          poetry install
+
+      - name: Python lint (ruff, black, isort)
+        working-directory: backend
+        run: |
+          poetry run ruff check .
+          poetry run black --check .
+          poetry run isort --check-only .
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Node.js dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: ESLint
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Prettier
+        working-directory: frontend
+        run: npm run format -- --check
