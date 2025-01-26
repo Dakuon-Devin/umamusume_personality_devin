@@ -1,0 +1,1 @@
+# umamusume_personality_devin

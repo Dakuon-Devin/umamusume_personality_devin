@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es5",                     // JavaScriptのターゲットバージョン
+    "lib": ["dom", "dom.iterable", "esnext"], // 使用するライブラリ
+    "allowJs": false,                    // JavaScriptファイルは許可しない
+    "skipLibCheck": false,               // 型チェックをスキップしない
+    "esModuleInterop": true,             // ESモジュール互換性
+    "allowSyntheticDefaultImports": true, // デフォルトインポートを許可
+    "strict": true,                      // 厳格モードを有効にする
+    "forceConsistentCasingInFileNames": true, // ファイル名の大文字小文字の一貫性を強制
+    "module": "esnext",                  // モジュールシステム
+    "moduleResolution": "node",          // Node.jsモジュール解決
+    "resolveJsonModule": true,           // JSONモジュールのインポートを許可
+    "isolatedModules": true,             // モジュールを分離してコンパイル
+    "noEmit": true,                      // 実際のファイル出力を行わない
+    "jsx": "react-jsx"                   // JSXサポート (React 17以降)
+  },
+  "include": [
+    "src"                                // 型チェック対象となるディレクトリ
+  ],
+  "exclude": [
+    "node_modules"                       // 型チェック対象外
+  ]
+}
