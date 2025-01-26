@@ -1,10 +1,10 @@
-import os
 from datetime import datetime, timedelta
+import os
 
-import jwt
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
+import jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 

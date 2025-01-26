@@ -46,7 +46,8 @@ def get_umamusume_result(input_text: str):
         vectorstore = FAISS.from_documents(docs, embeddings)
         retriever = vectorstore.as_retriever()
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to set up retriver: {e}") from e
+        msg = f"Failed to set up retriver: {e}"
+        raise HTTPException(status_code=500, detail=msg) from e
 
     try:
         qa_chain = RetrievalQA.from_chain_type(
@@ -58,7 +59,8 @@ def get_umamusume_result(input_text: str):
         result = qa_chain.invoke(input_text)
         print(result)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to retrieve answer: {e}") from e
+        msg = f"Failed to retrieve answer: {e}"
+        raise HTTPException(status_code=500, detail=msg) from e
 
     try:
         # 結果が存在し、ソースドキュメントが空でないことを確認
@@ -75,4 +77,5 @@ def get_umamusume_result(input_text: str):
             "url": best_match["url"],
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to parse result: {e}") from e
+        msg = f"Failed to parse result: {e}"
+        raise HTTPException(status_code=500, detail=msg) from e
