@@ -15,7 +15,7 @@ from app.models import PersonalityQuizRequest, PersonalityQuizResponse, UserResp
 from app.rag import get_umamusume_result
 
 # シングルトン変数の定義
-oauth2_form = Depends()
+oauth2_form = Depends(OAuth2PasswordRequestForm)
 current_user_dependency = Depends(get_current_user)
 
 # FastAPIアプリケーションの初期化
