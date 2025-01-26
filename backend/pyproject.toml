@@ -22,6 +22,30 @@ langchain-openai = "^0.2.0"
 faiss-cpu = "^1.8.0.post1"
 pyjwt = "^2.9.0"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.14"
+black = "^24.1.1"
+isort = "^5.13.2"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+]
 
 [build-system]
 requires = ["poetry-core"]

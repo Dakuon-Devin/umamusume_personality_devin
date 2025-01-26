@@ -13,7 +13,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +40,10 @@
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.24.7",
     "@types/react": "^18.3.8",
-    "@types/react-dom": "^18.3.0"
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint-config-prettier": "^10.0.1",
+    "prettier": "^3.4.2"
   }
 }

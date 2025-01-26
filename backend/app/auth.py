@@ -1,11 +1,12 @@
-import jwt
+import os
 from datetime import datetime, timedelta
+
+import jwt
+from dotenv import load_dotenv
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from pydantic import BaseModel
-from dotenv import load_dotenv
-import os
 
 # .envから環境変数をロード
 load_dotenv()
@@ -89,8 +90,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-    except jwt.PyJWTError:
-        raise credentials_exception
+    except jwt.PyJWTError as err:
+        raise credentials_exception from err
     user = get_user(fake_users_db, username)
     if user is None:
         raise credentials_exception
