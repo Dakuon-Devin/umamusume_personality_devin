@@ -11,13 +11,15 @@ export interface QuizResult {
   url: string;
 }
 
-export const getUmamusume = async (answers: QuizAnswers): Promise<QuizResult> => {
+export const getUmamusume = async (
+  answers: QuizAnswers
+): Promise<QuizResult> => {
   const response = await fetch('/api/getUmamusume', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(answers)
+    body: JSON.stringify(answers),
   });
 
   if (!response.ok) {

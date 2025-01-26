@@ -7,8 +7,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginForm />} />  {/* ログイン画面 */}
-        <Route path="/quiz" element={<PersonalityQuiz />} />  {/* 性格診断画面 */}
+        <Route path="/" element={<LoginForm />} /> {/* ログイン画面 */}
+        <Route path="/quiz" element={<PersonalityQuiz />} />{' '}
+        {/* 性格診断画面 */}
       </Routes>
     </Router>
   );

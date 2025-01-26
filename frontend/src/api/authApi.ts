@@ -1,4 +1,7 @@
-export const login = async (username: string, password: string): Promise<string> => {
+export const login = async (
+  username: string,
+  password: string
+): Promise<string> => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/token`, {
     method: 'POST',
     headers: {

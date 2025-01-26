@@ -26,6 +26,7 @@ pyjwt = "^2.9.0"
 ruff = "^0.1.14"
 black = "^24.1.1"
 isort = "^5.13.2"
+pre-commit = "^4.1.0"
 
 [tool.black]
 line-length = 88

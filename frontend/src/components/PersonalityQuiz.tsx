@@ -1,37 +1,40 @@
 import React, { useState } from 'react';
-import '../css/spinner.css';  // ローディング用のCSSファイルをインポート
+import '../css/spinner.css'; // ローディング用のCSSファイルをインポート
 
 const PersonalityQuiz: React.FC = () => {
   const [question1, setQuestion1] = useState('');
   const [question2, setQuestion2] = useState('');
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);  // ローディング状態を追加
+  const [isLoading, setIsLoading] = useState(false); // ローディング状態を追加
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('token');  // 保存したトークンを取得
+    const token = localStorage.getItem('token'); // 保存したトークンを取得
 
     if (!token) {
       setError('No token found. Please login first.');
       return;
     }
 
-    setIsLoading(true);  // ローディング開始
+    setIsLoading(true); // ローディング開始
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/getUmamusume`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,  // トークンをヘッダーに含める
-        },
-        body: JSON.stringify({
-          question1: question1,
-          question2: question2,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/getUmamusume`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // トークンをヘッダーに含める
+          },
+          body: JSON.stringify({
+            question1: question1,
+            question2: question2,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to fetch data');
@@ -70,14 +73,16 @@ const PersonalityQuiz: React.FC = () => {
             />
           </label>
         </div>
-        <button type="submit" disabled={isLoading}>Submit</button>
+        <button type="submit" disabled={isLoading}>
+          Submit
+        </button>
       </form>
 
       {/* ローディング中に表示されるコンポーネント */}
       {isLoading && <div className="spinner"></div>}
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      
+
       {result && (
         <div>
           <h3>Recommended Umamusume:</h3>
