@@ -39,7 +39,7 @@ def read_root():
 
 
 @app.post("/token")
-async def login(form_data: OAuth2PasswordRequestForm = oauth2_form)
+async def login(form_data: OAuth2PasswordRequestForm = oauth2_form):
     user = authenticate_user(fake_users_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
