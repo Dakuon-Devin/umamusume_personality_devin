@@ -12,6 +12,7 @@ load_dotenv()
 class CharacterScraper:
     def __init__(self):
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
     def _take_screenshot(self, url: str) -> bytes:
         """Take a screenshot of the character page."""
         with sync_playwright() as p:
@@ -23,9 +24,11 @@ class CharacterScraper:
             screenshot = page.screenshot(full_page=True)
             browser.close()
             return screenshot
+
     def _encode_image(self, image_bytes: bytes) -> str:
         """Encode the image bytes to base64."""
         return base64.b64encode(image_bytes).decode("utf-8")
+
     def _extract_character_info(self, image_bytes: bytes) -> Dict[str, str]:
         """Extract character information using OpenAI's Vision API."""
         base64_image = self._encode_image(image_bytes)
@@ -66,6 +69,7 @@ class CharacterScraper:
             "name": name,
             "profile": personality,
         }
+
     def scrape_character(self, url: str) -> Dict[str, str]:
         """Scrape character information from the given URL."""
         try:
@@ -76,6 +80,7 @@ class CharacterScraper:
         except Exception as e:
             print(f"Error scraping character from {url}: {str(e)}")
             return None
+
     def scrape_characters(self, urls: List[str]) -> List[Dict[str, str]]:
         """Scrape multiple characters from the given URLs."""
         characters = []
