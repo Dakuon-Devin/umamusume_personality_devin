@@ -14,6 +14,10 @@ from app.auth import (
 from app.models import PersonalityQuizRequest, PersonalityQuizResponse, UserResponse
 from app.rag import get_umamusume_result
 
+# シングルトン変数の定義
+oauth2_form = Depends()
+current_user_dependency = Depends(get_current_user)
+
 # FastAPIアプリケーションの初期化
 app = FastAPI()
 
@@ -35,7 +39,7 @@ def read_root():
 
 
 @app.post("/token")
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):  # type: ignore
+async def login(form_data: OAuth2PasswordRequestForm = oauth2_form)
     user = authenticate_user(fake_users_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
@@ -50,9 +54,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):  # type: igno
 
 # 認証されたユーザーの情報を返すエンドポイント
 @app.get("/users/me", response_model=UserResponse)  # レスポンスモデルを指定
-async def read_users_me(
-    current_user: User = Depends(get_current_user),  # type: ignore
-):
+async def read_users_me(current_user: User = current_user_dependency):
     # パスワードなどの機密情報は含まないUserResponseを返す
     return UserResponse(
         username=current_user.username,
@@ -65,7 +67,7 @@ async def read_users_me(
 @app.post("/api/getUmamusume", response_model=PersonalityQuizResponse)
 async def get_umamusume_quiz(
     request: PersonalityQuizRequest,
-    current_user: User = Depends(get_current_user),  # type: ignore
+    current_user: User = current_user_dependency,
 ):
     # 質問内容をまとめてRAGに渡す
     input_text = f"私は{request.question1}、{request.question2}です。"
